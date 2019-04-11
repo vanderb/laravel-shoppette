@@ -1,0 +1,29 @@
+{
+    "name": "vanderb/laravel-shoppette",
+    "description": "Small shop-package for laravel",
+    "type": "laravel-package",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Freerk van Zeijl",
+            "email": "freerk.vanzeijl@ultrabold.com"
+        }
+    ],
+    "require": {
+        "illuminate/support": ">=5.5.*",
+        "flobbos/laravel-translatable-db": "^1.4.*"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Vanderb\\LaravelShoppette\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Vanderb\\LaravelShoppette\\LaravelShoppetteServiceProvider"
+            ]
+        }
+    },
+}
