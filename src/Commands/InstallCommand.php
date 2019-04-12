@@ -40,12 +40,13 @@ class InstallCommand extends Command
     {
         $this->info("Welcome to Laravel-Shoppette Installer!");
 
+        // Get package size
         $package = $this->choice('Install full package?', ['full' => 'Full (with translations)', 'simple' => 'Simple'], 'full');
 
-        if($package == 'full') {
+        // Migrate
+        $this->call('migrate', array('--path' => 'vendor/vanderb/laravel-shoppette/resources/migrations/' . $package));
 
-        } else {
-
-        }
     }
+
+
 }
