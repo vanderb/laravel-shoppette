@@ -1,6 +1,6 @@
 <?php
 
-namespace Vanderb\LaravelShoppette\Models;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 

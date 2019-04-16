@@ -18,11 +18,11 @@ class LaravelShoppetteServiceProvider extends ServiceProvider {
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
 
         $this->publishes([
-            __DIR__.'/../migrations/simple' => database_path('migrations'),
+            __DIR__.'/../resources/migrations/simple' => database_path('migrations'),
         ], 'simple');
 
         $this->publishes([
-            __DIR__.'/../migrations/translatable' => database_path('migrations'),
+            __DIR__.'/../resources/migrations/translatable' => database_path('migrations'),
         ], 'translatable');
 
         // Register install command

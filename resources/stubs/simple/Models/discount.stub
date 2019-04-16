@@ -1,0 +1,21 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Discount extends Model{
+
+    protected $table = 'ls_discounts';
+    
+    protected $fillable = [
+        'name',
+        'discount_amount',
+        'discount_percentage'
+    ];
+    
+    public function products(){
+        return $this->belongsToMany(Product::class);
+    }
+    
+}

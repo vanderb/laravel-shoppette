@@ -1,0 +1,14 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class VoucherTranslation extends Model{
+
+    protected $table = 'ls_voucher_translations';
+
+    public $timestamps = false;
+    protected $fillable = ['name'];
+
+}

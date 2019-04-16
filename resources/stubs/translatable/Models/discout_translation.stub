@@ -1,0 +1,14 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class DiscountTranslation extends Model{
+
+    protected $table = 'ls_discount_translations';
+
+    public $timestamps = false;
+    protected $fillable = ['name'];
+
+}

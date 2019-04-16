@@ -1,0 +1,14 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class SaleTranslation extends Model{
+
+    protected $table = 'ls_sale_translations';
+
+    public $timestamps = false;
+    protected $fillable = ['name'];
+
+}

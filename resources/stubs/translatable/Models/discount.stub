@@ -1,12 +1,17 @@
 <?php
 
-namespace Vanderb\LaravelShoppette\Models;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Discount extends Model{
 
+    use \Flobbos\TranslatableDB\TranslatableDB;
+
     protected $table = 'ls_discounts';
+
+    public $translatedAttributes = ['name'];
+    public $fallbackAttributes = ['name'];
     
     protected $fillable = [
         'name',
