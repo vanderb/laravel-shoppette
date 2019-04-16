@@ -15,6 +15,7 @@ class CreateDiscountsTable extends Migration
     {
         Schema::create('ls_discounts', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name');
             $table->unsignedDecimal('discount_amount', 8 ,2)->nullable();
             $table->unsignedDecimal('discount_percentage', 8 ,2)->nullable();
             $table->timestamps();

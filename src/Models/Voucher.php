@@ -10,10 +10,11 @@ class Voucher extends Model{
 
     protected $fillable = [
         'name',
+        'code',
         'discount_amount',
         'discount_percentage',
         'qty',
-        'expired_on',
+        'expires_on',
         'active'
     ];
 

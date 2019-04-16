@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductSaleTable extends Migration
+class CreateBundleProductTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateProductSaleTable extends Migration
      */
     public function up()
     {
-        Schema::create('ls_product_sale', function (Blueprint $table) {
+        Schema::create('ls_bundle_product', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedInteger('bundle_id');
+            $table->foreign('bundle_id')->references('id')->on('ls_products')->onDelete('cascade');
             $table->unsignedInteger('product_id');
             $table->foreign('product_id')->references('id')->on('ls_products')->onDelete('cascade');
-            $table->unsignedInteger('sale_id');
-            $table->foreign('sale_id')->references('id')->on('ls_sales')->onDelete('cascade');
         });
     }
 
@@ -29,6 +29,6 @@ class CreateProductSaleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ls_product_sale');
+        Schema::dropIfExists('ls_bundle_product');
     }
 }

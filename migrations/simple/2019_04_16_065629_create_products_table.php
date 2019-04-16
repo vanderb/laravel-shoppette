@@ -15,6 +15,7 @@ class CreateProductsTable extends Migration
     {
         Schema::create('ls_products', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name');
             $table->unsignedDecimal('price', 8, 2);
             $table->string('photo')->nullable();
             $table->boolean('listed')->default(0);

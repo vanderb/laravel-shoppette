@@ -15,7 +15,6 @@ class CreateVouchersTable extends Migration
     {
         Schema::create('ls_vouchers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
             $table->string('code')->unique();
             $table->unsignedDecimal('discount_amount', 8 ,2)->nullable();
             $table->unsignedDecimal('discount_percentage', 8 ,2)->nullable();

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCartSessionsTable extends Migration
+class CreateProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateCartSessionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ls_cart_sessions', function (Blueprint $table) {
+        Schema::create('ls_products', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('session_token')->unique();
+            $table->unsignedDecimal('price', 8, 2);
+            $table->string('photo')->nullable();
+            $table->boolean('listed')->default(0);
+            $table->boolean('active')->default(0);
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ class CreateCartSessionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ls_cart_sessions');
+        Schema::dropIfExists('ls_products');
     }
 }

@@ -9,7 +9,7 @@ class CartSession extends Model{
     protected $table = 'ls_cart_sessions';
     
     protected $fillable = [
-        'session_id'
+        'session_token'
     ];
     
     public function cart_items(){

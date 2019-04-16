@@ -17,8 +17,8 @@ class CreateProductSaleTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedInteger('product_id');
             $table->foreign('product_id')->references('id')->on('ls_products')->onDelete('cascade');
-            $table->unsignedInteger('sale_id');
-            $table->foreign('sale_id')->references('id')->on('ls_sales')->onDelete('cascade');
+            $table->unsignedInteger('sales_id');
+            $table->foreign('sales_id')->references('id')->on('ls_sales')->onDelete('cascade');
         });
     }
 

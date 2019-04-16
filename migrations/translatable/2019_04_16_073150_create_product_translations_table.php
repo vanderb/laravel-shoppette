@@ -15,7 +15,13 @@ class CreateProductTranslationsTable extends Migration
     {
         Schema::create('ls_product_translations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
+            $table->string('name');
+
+            $table->unsignedInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('ls_products')->onDelete('cascade');
+
+            $table->string('language_id')->index();
+            $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
         });
     }
 

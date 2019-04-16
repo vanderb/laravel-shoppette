@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCartSessionsTable extends Migration
+class CreateLanguagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateCartSessionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ls_cart_sessions', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('session_token')->unique();
-            $table->timestamps();
-        });
+        if(Schema::hasTable('languages')) {
+            Schema::create('languages', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('locale');
+                $table->string('name');
+            });
+        }
     }
 
     /**
@@ -27,6 +29,6 @@ class CreateCartSessionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ls_cart_sessions');
+        Schema::dropIfExists('languages');
     }
 }

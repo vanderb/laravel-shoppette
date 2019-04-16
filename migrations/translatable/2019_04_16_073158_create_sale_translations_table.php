@@ -15,7 +15,13 @@ class CreateSaleTranslationsTable extends Migration
     {
         Schema::create('ls_sale_translations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
+            $table->string('name');
+
+            $table->unsignedInteger('sale_id');
+            $table->foreign('sale_id')->references('id')->on('ls_sales')->onDelete('cascade');
+
+            $table->string('language_id')->index();
+            $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
         });
     }
 

@@ -15,6 +15,7 @@ class CreateSalesTable extends Migration
     {
         Schema::create('ls_sales', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name');
             $table->unsignedDecimal('discount_percentage',8, 2);
             $table->timestamp('starts_on')->nullable();
             $table->timestamp('ends_on')->nullable();

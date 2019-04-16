@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVoucherTranslationsTable extends Migration
+class CreateCartSessionVoucherTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateVoucherTranslationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ls_voucher_translations', function (Blueprint $table) {
+        Schema::create('ls_cart_session_voucher', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-
+            $table->unsignedInteger('cart_session_id');
+            $table->foreign('cart_session_id')->references('id')->on('ls_cart_sessions')->onDelete('cascade');
             $table->unsignedInteger('voucher_id');
             $table->foreign('voucher_id')->references('id')->on('ls_vouchers')->onDelete('cascade');
-
-            $table->string('language_id')->index();
-            $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
         });
     }
 
@@ -32,6 +29,6 @@ class CreateVoucherTranslationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ls_voucher_translations');
+        Schema::dropIfExists('ls_cart_session_voucher');
     }
 }
