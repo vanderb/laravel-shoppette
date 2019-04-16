@@ -38,15 +38,36 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        $this->info("Welcome to Laravel-Shoppette Installer!");
+        $this->info("");
+        $this->info("##############################");
+        $this->info("Welcome to LARVEL-SHOPPETTE!");
+        $this->info("##############################");
+        $this->info("");
 
-        // Get package size
-        $package = $this->choice('Install full package?', ['full' => 'Full (with translations)', 'simple' => 'Simple'], 'full');
+        // Get package env
+        $this->info('Keep it simple or support translations [use flobbos/laravel-translatable-db]?');
+        $env = $this->choice('Simpe or translated?', ['simple' => 'Simple', 'translatable' => 'Translatable'], 'simple');
 
-        // Migrate
-        $this->call('migrate', array('--path' => 'vendor/vanderb/laravel-shoppette/resources/migrations/' . $package));
+        // Publish migration-files
+        $this->info("Publishing migrations files for: '" . $env . "'");
+        $this->call('vendor:publish', [
+            '--provider' => 'Vanderb\LaravelShoppette\LaravelShoppetteServiceProvider',
+            '--tag' => $env
+        ]);
 
+        // Publish config-file
+        $this->info("Publishing config-file");
+        $this->call('vendor:publish', [
+            '--provider' => 'Vanderb\LaravelShoppette\LaravelShoppetteServiceProvider',
+            '--tag' => 'config'
+        ]);
+
+        // Installation successful
+        $this->info("Installation-process complete!");
+        $this->info("##############################");
+        $this->info("Next Step: Add custom fields to shoppette-migration-files in '/database/migrations' and run 'php artisan migrate'.");
+        $this->info("Full Documentation: 'http://github.com/vanderb/laravel-shoppette'");
+        $this->info("##############################");
     }
-
 
 }
