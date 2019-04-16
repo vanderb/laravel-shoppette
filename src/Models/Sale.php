@@ -5,6 +5,8 @@ namespace Vanderb\LaravelShoppette\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class Sale extends Model{
+
+    protected $table = 'ls_sales';
     
     protected $fillable = [
         'name',

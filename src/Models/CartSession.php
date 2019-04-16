@@ -5,6 +5,8 @@ namespace Vanderb\LaravelShoppette\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class CartSession extends Model{
+
+    protected $table = 'ls_cart_sessions';
     
     protected $fillable = [
         'session_id'
