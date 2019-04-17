@@ -1,0 +1,28 @@
+<?php
+
+namespaces App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Order extends Model{
+
+    protected $table = 'ls_orders';
+
+    protected $fillable = [
+        'billing_address',
+        'shipping_address'
+    ];
+
+    public function order_items(){
+        return $this->hasMany(OrderItem::class);
+    }
+
+    public function getShippingAddressAttribute(){
+        return new ShippingAddress($this->fromJson($this->shipping_address ?? []));
+    }
+
+    public function getBillingAddress(){
+        return new BillingAddress($this->formJson($this->billing_address ?? []));
+    }
+
+}

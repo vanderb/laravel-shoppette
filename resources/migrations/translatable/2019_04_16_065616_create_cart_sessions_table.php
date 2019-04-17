@@ -16,6 +16,8 @@ class CreateCartSessionsTable extends Migration
         Schema::create('ls_cart_sessions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('session_token')->unique();
+            $table->json('billing_address')->nullable();
+            $table->json('shipping_address')->nullable();
             $table->timestamps();
         });
     }

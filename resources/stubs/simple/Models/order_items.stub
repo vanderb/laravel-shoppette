@@ -4,22 +4,22 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CartItem extends Model{
+class OrderItem extends Model{
 
-    protected $table = 'ls_cart_items';
+    protected $table = 'ls_order_items';
 
     protected $fillable = [
-        'cart_session_id',
+        'order_id',
         'product_id',
         'qty'
     ];
-    
-    public function cart_session(){
-        return $this->belongsTo(CartSession::class);
+
+    public function order(){
+        return $this->belongsTo(Order::class);
     }
-    
+
     public function products(){
         return $this->belongsTo(Product::class);
     }
-    
+
 }
