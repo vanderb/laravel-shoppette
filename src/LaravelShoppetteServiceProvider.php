@@ -14,7 +14,8 @@ class LaravelShoppetteServiceProvider extends ServiceProvider {
             __DIR__.'/../config/laravel-shoppette.php' => config_path('laravel-shoppette.php'),
         ],'config');
 
-        // Load API routes
+        // Load routes
+        $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
 
         $this->publishes([
@@ -24,6 +25,9 @@ class LaravelShoppetteServiceProvider extends ServiceProvider {
         $this->publishes([
             __DIR__.'/../resources/migrations/translatable' => database_path('migrations'),
         ], 'translatable');
+
+        // register middleware
+        $this->app['router']->aliasMiddleware('larvaelShoppette', Middleware\LaravelShoppetteMiddleware::class);
 
         // Register install command
         if ($this->app->runningInConsole()) {
