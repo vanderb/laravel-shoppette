@@ -17,9 +17,11 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->unsignedDecimal('price', 8, 2);
+            $table->unsignedDecimal('weight', 8, 2);
             $table->string('photo')->nullable();
-            $table->boolean('listed')->default(0);
-            $table->boolean('active')->default(0);
+            $table->boolean('listed')->default(1);
+            $table->boolean('active')->default(1);
+            $table->boolean('out_of_stock')->default(0);
             $table->timestamps();
         });
     }
