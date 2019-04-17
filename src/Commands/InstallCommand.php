@@ -61,7 +61,11 @@ class InstallCommand extends Command
             '--provider' => 'Vanderb\LaravelShoppette\LaravelShoppetteServiceProvider',
             '--tag' => 'config'
         ]);
-
+        
+        //Generate models
+        $this->info('Generating models');
+        $this->call('')
+        
         // Installation successful
         $this->info("Installation-process complete!");
         $this->info("##############################");

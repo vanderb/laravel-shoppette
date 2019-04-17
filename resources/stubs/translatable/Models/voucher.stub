@@ -14,7 +14,6 @@ class Voucher extends Model{
     public $fallbackAttributes = ['name'];
 
     protected $fillable = [
-        'name',
         'code',
         'discount_amount',
         'discount_percentage',

@@ -14,7 +14,6 @@ class Sale extends Model{
     public $fallbackAttributes = ['name'];
     
     protected $fillable = [
-        'name',
         'discount_percentage',
         'starts_on',
         'ends_on'
