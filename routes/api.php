@@ -4,8 +4,8 @@
 // API Routes
 Route::group([
         'prefix' => 'api/shoppette/',
-        'middleware' => ['laravelShoppette'],
         'as.' => 'api.shoppette',
+        'middleware' => ['protectCartApi'],
         'namespace' => 'Vanderb\Controllers'
     ],
     function(){

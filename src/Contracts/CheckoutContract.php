@@ -2,7 +2,7 @@
 
 namespace Vanderb\LaravelShoppette\Contracts;
 
-interface OrderContract {
+interface CheckoutContract {
     
     public function saveOrder(array $order_data);
     

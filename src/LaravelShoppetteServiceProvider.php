@@ -4,6 +4,7 @@ namespace Vanderb\LaravelShoppette;
 
 use Vanderb\LaravelShoppette\Commands\InstallCommand;
 use Illuminate\Support\ServiceProvider;
+use Vanderb\LaravelShoppette\Middleware\ProtectCartApi;
 
 class LaravelShoppetteServiceProvider extends ServiceProvider {
 
@@ -27,7 +28,7 @@ class LaravelShoppetteServiceProvider extends ServiceProvider {
         ], 'translatable');
 
         // register middleware
-        $this->app['router']->aliasMiddleware('larvaelShoppette', Middleware\LaravelShoppetteMiddleware::class);
+        $this->app['router']->aliasMiddleware('protectCartApi', ProtectCartApi::class);
 
         // Register install command
         if ($this->app->runningInConsole()) {
