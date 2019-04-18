@@ -1,34 +1,28 @@
 <?php
 
-namespace App;
+namespace Vanderb\LaravelShoppette\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Vanderb\LaravelShoppette\Classes\BillingAddress;
 
-class CartSession extends Model{
+class Order extends Model{
 
-    protected $table = 'ls_cart_sessions';
-    
+    protected $table = 'ls_orders';
+
     protected $fillable = [
-        'session_token',
         'billing_address',
         'shipping_address'
     ];
-    
-    public function cart_items(){
-        return $this->hasMany(CartItem::class);
+
+    public function order_items(){
+        return $this->hasMany(OrderItem::class);
     }
-    
-    public function vouchers(){
-        return $this->belongsToMany(Voucher::class);
-    }
-    
+
     public function getShippingAddressAttribute(){
         return new ShippingAddress($this->fromJson($this->shipping_address ?? []));
     }
-    
+
     public function getBillingAddress(){
         return new BillingAddress($this->formJson($this->billing_address ?? []));
     }
-    
+
 }

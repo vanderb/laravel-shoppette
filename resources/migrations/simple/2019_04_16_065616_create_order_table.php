@@ -15,6 +15,8 @@ class CreateOrderTable extends Migration
     {
         Schema::create('ls_orders', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedInteger('shipping_option_id');
+            $table->foreign('shipping_option_id')->references('id')->on('ls_shipping_options')->onDelete('restrict');
             $table->json('billing_address')->nullable();
             $table->json('shipping_address')->nullable();
             $table->timestamps();
