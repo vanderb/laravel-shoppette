@@ -9,6 +9,9 @@ Route::group([
         'namespace' => 'Vanderb\Controllers'
     ],
     function(){
+        //Vouchers
+        Route::get('vouchers/validate/{code}','VoucherController@validateVoucher');
+        Route::get('vouchers/{code}','VoucherController@show');
         //Cart functionality
         Route::get('cart/{$id}','CartController@getCartById');
         Route::post('cart/add-item','CartController@addItem');
@@ -19,4 +22,5 @@ Route::group([
         Route::post('checkout/add-shipping-address','CheckoutController@addShippingAddress');
         //Oder functionality
         Route::post('order','OrderController@saveOrder');
+        
     });

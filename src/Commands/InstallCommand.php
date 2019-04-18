@@ -64,7 +64,7 @@ class InstallCommand extends Command
         
         //Generate models
         $this->info('Generating models');
-        $this->call('')
+        $this->call('');
         
         // Installation successful
         $this->info("Installation-process complete!");
