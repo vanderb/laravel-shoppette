@@ -24,4 +24,10 @@ class CartService {
 
     }
 
+    public function generateSession() {
+        return $this->model->create([
+            'session_token' =>  str_random(16)
+        ]);
+    }
+
 }

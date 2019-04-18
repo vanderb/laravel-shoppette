@@ -5,6 +5,7 @@
 Route::group([
         'prefix' => 'api/shoppette/',
         'as.' => 'api.shoppette',
+        'middleware' => ['protectCartApi'],
         'namespace' => 'Vanderb\Controllers'
     ],
     function(){

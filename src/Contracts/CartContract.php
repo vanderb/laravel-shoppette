@@ -13,5 +13,7 @@ interface CartContract {
     public function saveBillingAddressToCart(int $cart_session_id, array $billing_data);
     
     public function saveShippingAddressToCart(int $cart_session_id, array $shipping_data);
+
+    public function generateSession();
     
 }
