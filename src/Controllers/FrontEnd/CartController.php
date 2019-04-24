@@ -14,7 +14,12 @@ class CartController extends Controller {
 
     public function addItem(Request $request, CartContract $cart) {
         $cart->addItemToCart($request->cart_session->id, $request->except(['cart_session']));
-        return $request->cart_session;
+        return $cart->getCartByToken( $request->bearerToken() );
+    }
+
+    public function removeItem(Request $request, CartContract $cart) {
+        $cart->removeItemFromCart($request->get('cart_item_id'));
+        return $cart->getCartByToken( $request->bearerToken() );
     }
 
 }
