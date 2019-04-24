@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Classes;
+namespace Vanderb\LaravelShoppette\Classes;
 
 class BaseClass{
     

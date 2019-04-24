@@ -5,6 +5,7 @@ namespace Vanderb\LaravelShoppette;
 use Vanderb\LaravelShoppette\Commands\InstallCommand;
 use Illuminate\Support\ServiceProvider;
 use Vanderb\LaravelShoppette\Middleware\ProtectCartApi;
+use Vanderb\LaravelShoppette\Services\CartService;
 
 class LaravelShoppetteServiceProvider extends ServiceProvider {
 
@@ -44,6 +45,6 @@ class LaravelShoppetteServiceProvider extends ServiceProvider {
      * Register the service provider.
      */
     public function register(){
-
+        $this->app->bind('Vanderb\LaravelShoppette\Contracts\CartContract', CartService::class);
     }
 }

@@ -23,7 +23,7 @@ class CartService extends BaseService implements CartContract{
     }
 
     public function getCartByToken(string $cart_token): ?CartSession{
-        return $this->model->where('session_token',$cart_token)->first();
+        return $this->model->where('session_token',$cart_token)->with(['cart_items.product'])->first();
     }
 
     public function getCartById(int $cart_session_id) {
@@ -64,7 +64,7 @@ class CartService extends BaseService implements CartContract{
 
     public function generateSession() {
         return $this->model->create([
-            'session_token' =>  str_random(16)
+            'session_token' =>  str_random(32)
         ]);
     }
 
