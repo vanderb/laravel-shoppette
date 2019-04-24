@@ -5,6 +5,7 @@ namespace Vanderb\LaravelShoppette\Controllers\FrontEnd;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Vanderb\LaravelShoppette\Contracts\CartContract;
+use Exception;
 
 class CartController extends Controller {
 
@@ -13,13 +14,21 @@ class CartController extends Controller {
     }
 
     public function addItem(Request $request, CartContract $cart) {
-        $cart->addItemToCart($request->cart_session->id, $request->except(['cart_session']));
-        return $cart->getCartByToken( $request->bearerToken() );
+        try{
+            $cart->addItemToCart($request->cart_session->id, $request->except(['cart_session']));
+            return $cart->getCartByToken( $request->bearerToken() );
+        } catch (Exception $ex) {
+            return response()->json(['error'=>$ex->getMessage()],500);
+        }
     }
 
     public function removeItem(Request $request, CartContract $cart) {
-        $cart->removeItemFromCart($request->get('cart_item_id'));
-        return $cart->getCartByToken( $request->bearerToken() );
+        try{
+            $cart->removeItemFromCart($request->get('cart_item_id'));
+            return $cart->getCartByToken( $request->bearerToken() );
+        } catch (Exception $ex) {
+            return response()->json(['error'=>$ex->getMessage()],500);
+        }
     }
 
 }

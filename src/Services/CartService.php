@@ -31,6 +31,15 @@ class CartService extends BaseService implements CartContract{
     }
 
     public function addItemToCart(int $cart_session_id, array $item_data) {
+        $item = $this->cart_items
+                ->where('product_id',$item_data['product_id'])
+                ->where('cart_session_id',$cart_session_id)
+                ->first();
+        if($item){
+            $item->qty = $item_data['qty'];
+            $item->save();
+            return $item;
+        }
         return $this->cart_items->create(array_merge($item_data, ['cart_session_id' => $cart_session_id]));
     }
 
