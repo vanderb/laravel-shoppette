@@ -3,7 +3,7 @@
 namespace Vanderb\LaravelShoppette\Middleware;
 
 use Closure;
-use Frogbob\LaravelCartSession\Contracts\CartContract;
+use Vanderb\LaravelShoppette\Contracts\CartContract;
 
 class ProtectCartApi {
 
@@ -25,9 +25,9 @@ class ProtectCartApi {
     public function handle($request, Closure $next, $guard = null)
     {
 
-        $session = $this->getCartById( $request->bearerToken() );
+        $session = $this->cart->getCartByToken( $request->bearerToken() );
 
-        if(!$session) {
+        if(is_null($session)) {
             $session = $this->cart->generateSession();
         }
 

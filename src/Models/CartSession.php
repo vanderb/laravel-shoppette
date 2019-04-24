@@ -4,6 +4,7 @@ namespace Vanderb\LaravelShoppette\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Vanderb\LaravelShoppette\Classes\BillingAddress;
+use Vanderb\LaravelShoppette\Classes\ShippingAddress;
 
 class CartSession extends Model{
 
@@ -24,11 +25,11 @@ class CartSession extends Model{
     }
     
     public function getShippingAddressAttribute(){
-        return new ShippingAddress($this->fromJson($this->shipping_address ?? []));
+        //return new ShippingAddress($this->fromJson($this->shipping_address ?? []));
     }
     
     public function getBillingAddress(){
-        return new BillingAddress($this->formJson($this->billing_address ?? []));
+        //return new BillingAddress($this->formJson($this->billing_address ?? []));
     }
     
 }
