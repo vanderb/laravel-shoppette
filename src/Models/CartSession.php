@@ -16,6 +16,13 @@ class CartSession extends Model{
         'shipping_address'
     ];
     
+    protected $appends = [
+        'cart_total',
+        'total_weight',
+        'total_items'
+    ];
+
+
     public function cart_items(){
         return $this->hasMany(CartItem::class);
     }
@@ -24,12 +31,28 @@ class CartSession extends Model{
         return $this->belongsToMany(Voucher::class);
     }
     
-    public function getShippingAddressAttribute(){
-        //return new ShippingAddress($this->fromJson($this->shipping_address ?? []));
+    public function getShippingAddressAttribute($value){
+        return new ShippingAddress($this->fromJson($value ?? '{}'));
     }
     
-    public function getBillingAddress(){
-        //return new BillingAddress($this->formJson($this->billing_address ?? []));
+    public function getBillingAddressAttribute($value){
+        return new BillingAddress($this->fromJson($value ?? '{}'));
+    }
+    
+    public function getCartTotalAttribute(){
+        return $this->cart_items->sum(function($item){
+            return $item->product->price*$item->qty;
+        });
+    }
+    
+    public function getTotalItemsAttribute(){
+        return $this->cart_items->count();
+    }
+    
+    public function getTotalWeightAttribute(){
+        return $this->cart_items->sum(function($item){
+            return $item->product->weight*$item->qty;
+        });
     }
     
 }

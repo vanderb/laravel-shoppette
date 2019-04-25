@@ -13,10 +13,10 @@ class ShippingService extends BaseService implements ShippingContract{
     }
 
     public function getShippingOptionByWeight(float $total_weight) {
-        ;
+        return $this->model->where('max_weight','>=',$total_weight)->first();
     }
     
-    public function checkValidForWeight(int $id, float $total_weight) {
+    public function checkValidForWeight(int $id, float $total_weight): bool {
         ;
     }
     

@@ -10,7 +10,8 @@ class Order extends Model{
 
     protected $fillable = [
         'billing_address',
-        'shipping_address'
+        'shipping_address',
+        'shipping_option_id',
     ];
 
     public function order_items(){
@@ -23,6 +24,10 @@ class Order extends Model{
 
     public function getBillingAddress(){
         return new BillingAddress($this->formJson($this->billing_address ?? []));
+    }
+    
+    public function shipping_option(){
+        return $this->belongsTo(ShippingOption::class);
     }
 
 }

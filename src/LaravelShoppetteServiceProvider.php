@@ -5,7 +5,7 @@ namespace Vanderb\LaravelShoppette;
 use Vanderb\LaravelShoppette\Commands\InstallCommand;
 use Illuminate\Support\ServiceProvider;
 use Vanderb\LaravelShoppette\Middleware\ProtectCartApi;
-use Vanderb\LaravelShoppette\Services\CartService;
+use Illuminate\Support\Facades\Event;
 
 class LaravelShoppetteServiceProvider extends ServiceProvider {
 
@@ -37,6 +37,8 @@ class LaravelShoppetteServiceProvider extends ServiceProvider {
                 InstallCommand::class
             ]);
         }
+        //Register events
+        Event::listen('Vanderb\LaravelShoppette\Events\CartUpdated','Vanderb\LaravelShoppette\Listeners\UpdateCart');
 
 
     }
@@ -45,6 +47,7 @@ class LaravelShoppetteServiceProvider extends ServiceProvider {
      * Register the service provider.
      */
     public function register(){
-        $this->app->bind('Vanderb\LaravelShoppette\Contracts\CartContract', CartService::class);
+        $this->app->bind('Vanderb\LaravelShoppette\Contracts\CartContract', Services\CartService::class);
+        $this->app->bind('Vanderb\LaravelShoppette\Contracts\ShippingContract', Services\ShippingService::class);
     }
 }

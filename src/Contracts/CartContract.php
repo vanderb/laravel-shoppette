@@ -8,7 +8,7 @@ interface CartContract {
     
     public function createCartSession(): CartSession;
     
-    public function getCartByToken(string $cart_token);
+    public function getCartByToken(string $cart_token = null);
     
     public function getCartById(int $cart_session_id);
     

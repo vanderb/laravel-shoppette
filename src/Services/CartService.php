@@ -22,12 +22,15 @@ class CartService extends BaseService implements CartContract{
         ]);
     }
 
-    public function getCartByToken(string $cart_token): ?CartSession{
+    public function getCartByToken(string $cart_token = null): ?CartSession{
+        if(!$cart_token){
+            return null;
+        }
         return $this->model->where('session_token',$cart_token)->with(['cart_items.product'])->first();
     }
 
     public function getCartById(int $cart_session_id) {
-        return $this->model->find($cart_session_id);
+        return $this->model->with(['cart_items.product'])->find($cart_session_id);
     }
 
     public function addItemToCart(int $cart_session_id, array $item_data) {
@@ -36,7 +39,7 @@ class CartService extends BaseService implements CartContract{
                 ->where('cart_session_id',$cart_session_id)
                 ->first();
         if($item){
-            $item->qty = $item_data['qty'];
+            $item->qty = $item->qty + $item_data['qty'];
             $item->save();
             return $item;
         }
