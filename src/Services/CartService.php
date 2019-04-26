@@ -2,82 +2,82 @@
 
 namespace Vanderb\LaravelShoppette\Services;
 
-use Vanderb\LaravelShoppette\Contracts\CartContract;
+use Vanderb\LaravelShoppette\Contracts\Cart;
 use Vanderb\LaravelShoppette\Models\CartSession;
 use Vanderb\LaravelShoppette\Models\CartItem;
-use Vanderb\LaravelShoppette\Services\BaseService;
+use Vanderb\LaravelShoppette\Classes\BillingAddress;
+use Vanderb\LaravelShoppette\Classes\ShippingAddress;
+use Vanderb\LaravelShoppette\Models\Voucher;
+use Vanderb\LaravelShoppette\Exceptions\VoucherUsedException;
 
-class CartService extends BaseService implements CartContract{
+class CartService implements Cart{
     
-    protected $cart_items;
-    
-    public function __construct(CartSession $cart_session, CartItem $cart_item) {
-        $this->model = $cart_session;
-        $this->cart_items = $cart_item;
+    public function get(): CartSession{
+        return request()->get('cart_session');
     }
     
-    public function createCartSession(): CartSession {
-        return $this->model->create([
-            'session_token' => str_random(16)
-        ]);
-    }
-
-    public function getCartByToken(string $cart_token = null): ?CartSession{
-        if(!$cart_token){
-            return null;
+    public function add(array $item): bool{
+        $current_item = $this->getCartItem($item);
+        if($current_item){
+            $current_item->qty = $current_item->qty + $item['qty'];
+            return $current_item->save();
         }
-        return $this->model->where('session_token',$cart_token)->with(['cart_items.product'])->first();
+        $this->session()->cart_items()->save(new CartItem(array_merge($item, ['cart_session_id' => $this->session()->id])));
+        return true;
     }
-
-    public function getCartById(int $cart_session_id) {
-        return $this->model->with(['cart_items.product'])->find($cart_session_id);
-    }
-
-    public function addItemToCart(int $cart_session_id, array $item_data) {
-        $item = $this->cart_items
-                ->where('product_id',$item_data['product_id'])
-                ->where('cart_session_id',$cart_session_id)
-                ->first();
-        if($item){
-            $item->qty = $item->qty + $item_data['qty'];
-            $item->save();
-            return $item;
+    
+    public function update(array $item): bool{
+        $current_item = $this->getCartItem($item);
+        if($current_item){
+            $current_item->qty = $item['qty'];
+            return $current_item->save();
         }
-        return $this->cart_items->create(array_merge($item_data, ['cart_session_id' => $cart_session_id]));
+        return false;
     }
-
-    public function removeItemFromCart(int $item_id) {
-        $cart_item = $this->cart_items->where('id',$item_id)->first();
+    
+    public function remove(int $item_id): bool{
+        $cart_item = $this->session()->cart_items->where('id',$item_id)->first();
         if($cart_item){
-            return $cart_item->delete();
+            $cart_item->delete();
+            return true;
         }
         return false;
     }
-
-    public function saveBillingAddressToCart(int $cart_session_id, array $billing_data) {
-        $cart_session = $this->model->find($cart_session_id);
-        if($cart_session){
-            return $cart_session->update([
-                'billing_address' => $billing_data
-            ]);
+    
+    public function saveBillingAddress(array $billing_address): bool{
+        
+    }
+    
+    public function billingAddress(): BillingAddress{
+        
+    }
+    
+    public function saveShippingAddress(array $shipping_address): bool{
+        
+    }
+    
+    public function shippingAddress(): ShippingAddress{
+        
+    }
+    
+    public function redeemVoucher(Voucher $voucher): bool {
+        if($this->session()->vouchers->contains($voucher->id)){
+            throw new VoucherUsedException('Voucher has already been used.');
         }
-        return false;
+        $this->session()->vouchers()->attach($voucher);
+        return true;
     }
-
-    public function saveShippingAddressToCart(int $cart_session_id, array $shipping_data) {
-        $cart_session = $this->model->find($cart_session_id);
-        if($cart_session){
-            return $cart_session->update([
-                'shipping_address' => $billing_data
-            ]);
-        }
-        return false;
+    
+    /***************************************************/
+    private function getCartItem(array $item_data){
+        return $this->session()
+                ->cart_items
+                ->where('product_id',$item_data['product_id'])
+                ->first();
     }
-
-    public function generateSession() {
-        return $this->model->create([
-            'session_token' =>  str_random(32)
-        ]);
+    
+    private function session(){
+        return request()->cart_session;
     }
-
+    
 }

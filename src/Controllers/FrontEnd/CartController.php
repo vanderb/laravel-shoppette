@@ -2,6 +2,7 @@
 
 namespace Vanderb\LaravelShoppette\Controllers\FrontEnd;
 
+use Facades\Vanderb\LaravelShoppette\Contracts\Cart;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Vanderb\LaravelShoppette\Contracts\CartContract;
@@ -10,24 +11,35 @@ use Exception;
 
 class CartController extends Controller {
 
-    public function getCartById(Request $request) {
-        return response()->json($request->get('cart_session'));
+    public function getCartById() {
+        return response()->json(Cart::get());
     }
 
-    public function addItem(Request $request, CartContract $cart) {
+    public function addItem(Request $request) {
         try{
-            $cart->addItemToCart($request->cart_session->id, $request->except(['cart_session']));
-            event(new CartUpdated($cart->getCartById($request->cart_session->id)));
-            return $cart->getCartByToken( $request->bearerToken() );
+            Cart::add($request->except(['cart_session']));
+            event(new CartUpdated());
+            return Cart::get();
         } catch (Exception $ex) {
             return response()->json(['error'=>$ex->getMessage()],500);
         }
     }
 
-    public function removeItem(Request $request, CartContract $cart) {
+    public function updateItem(Request $request) {
         try{
-            $cart->removeItemFromCart($request->get('cart_item_id'));
-            return $cart->getCartByToken( $request->bearerToken() );
+            Cart::update($request->except('cart_session'));
+            event(new CartUpdated());
+            return Cart::get();
+        } catch (Exception $ex) {
+            return response()->json(['error'=>$ex->getMessage()],500);
+        }
+    }
+
+    public function removeItem(Request $request) {
+        try{
+            Cart::remove($request->get('cart_item_id'));
+            event(new CartUpdated());
+            return Cart::get();
         } catch (Exception $ex) {
             return response()->json(['error'=>$ex->getMessage()],500);
         }

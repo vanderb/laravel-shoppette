@@ -47,7 +47,9 @@ class LaravelShoppetteServiceProvider extends ServiceProvider {
      * Register the service provider.
      */
     public function register(){
-        $this->app->bind('Vanderb\LaravelShoppette\Contracts\CartContract', Services\CartService::class);
         $this->app->bind('Vanderb\LaravelShoppette\Contracts\ShippingContract', Services\ShippingService::class);
+        $this->app->singleton('Vanderb\LaravelShoppette\Contracts\Cart', Services\CartService::class);
+        $this->app->bind('Vanderb\LaravelShoppette\Contracts\CartSession', Services\CartSessionService::class);
+        $this->app->bind('Vanderb\LaravelShoppette\Contracts\VoucherContract', Services\VoucherService::class);
     }
 }

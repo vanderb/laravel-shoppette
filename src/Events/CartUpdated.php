@@ -9,21 +9,21 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Vanderb\LaravelShoppette\Models\CartSession;
+use Facades\Vanderb\LaravelShoppette\Contracts\Cart;
 
 class CartUpdated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     
-    public $cart_session;
+    public $cart;
     
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(CartSession $cart_session){
-        $this->cart_session = $cart_session;
+    public function __construct(){
+        $this->cart = Cart::get();
     }
 
     /**

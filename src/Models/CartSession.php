@@ -5,6 +5,7 @@ namespace Vanderb\LaravelShoppette\Models;
 use Illuminate\Database\Eloquent\Model;
 use Vanderb\LaravelShoppette\Classes\BillingAddress;
 use Vanderb\LaravelShoppette\Classes\ShippingAddress;
+use Vanderb\LaravelShoppette\Models\ShippingOption;
 
 class CartSession extends Model{
 
@@ -28,7 +29,11 @@ class CartSession extends Model{
     }
     
     public function vouchers(){
-        return $this->belongsToMany(Voucher::class);
+        return $this->belongsToMany(Voucher::class,'ls_cart_session_voucher');
+    }
+
+    public function shipping_option() {
+        return $this->belongsTo(ShippingOption::class);
     }
     
     public function getShippingAddressAttribute($value){
@@ -46,7 +51,7 @@ class CartSession extends Model{
     }
     
     public function getTotalItemsAttribute(){
-        return $this->cart_items->count();
+        return $this->cart_items->sum('qty');
     }
     
     public function getTotalWeightAttribute(){

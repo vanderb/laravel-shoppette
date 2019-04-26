@@ -6,6 +6,7 @@ use Vanderb\LaravelShoppette\Events\CartUpdated;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Vanderb\LaravelShoppette\Contracts\ShippingContract;
+use Facades\Vanderb\LaravelShoppette\Contracts\CartSession;
 
 class UpdateCart {
     
@@ -27,9 +28,10 @@ class UpdateCart {
      * @return void
      */
     public function handle(CartUpdated $event){
-        if($shipping_option = $this->shipping->getShippingOptionByWeight($event->cart_session->total_weight)){
-            $event->cart_session->shipping_option_id = $shipping_option->id;
-            $event->cart_session->save();
+        if($shipping_option = $this->shipping->getShippingOptionByWeight($event->cart->total_weight)){
+            $event->cart->shipping_option_id = $shipping_option->id;
+            $event->cart->save();
         }
+        CartSession::create();
     }
 }

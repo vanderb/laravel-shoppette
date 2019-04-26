@@ -3,16 +3,9 @@
 namespace Vanderb\LaravelShoppette\Middleware;
 
 use Closure;
-use Vanderb\LaravelShoppette\Contracts\CartContract;
+use Facades\Vanderb\LaravelShoppette\Contracts\CartSession;
 
 class ProtectCartApi {
-
-    protected $cart;
-
-    public function __construct(CartContract $cart)
-    {
-        $this->cart = $cart;
-    }
 
     /**
      * Handle an incoming request.
@@ -24,15 +17,7 @@ class ProtectCartApi {
      */
     public function handle($request, Closure $next, $guard = null)
     {
-
-        $session = $this->cart->getCartByToken( $request->bearerToken() );
-
-        if(is_null($session)) {
-            $session = $this->cart->generateSession();
-        }
-
-        $request->request->add(['cart_session' => $session]);
-
+        CartSession::create();
         return $next($request);
     }
 }
