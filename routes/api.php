@@ -18,8 +18,8 @@ Route::group([
         Route::delete('cart/remove-item','CartController@removeItem');
         //Checkout functionality
         Route::get('checkout','CheckoutController@getCheckout');
-        //Route::post('checkout/add-billing-address','CheckoutController@addBillingAddress');
-        //Route::post('checkout/add-shipping-address','CheckoutController@addShippingAddress');
+        Route::post('checkout/add-billing-address','CheckoutController@addBillingAddress');
+        Route::post('checkout/add-shipping-address','CheckoutController@addShippingAddress');
         //Oder functionality
         //Route::post('order','OrderController@saveOrder');
         Route::get('session-test', function(){
