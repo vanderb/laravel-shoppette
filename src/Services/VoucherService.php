@@ -12,7 +12,7 @@ class VoucherService extends BaseService implements VoucherContract{
         $this->model = $voucher;
     }
 
-    public function validateVoucher(string $voucher_code): bool{
+    public function validateVoucher(string $voucher_code): ?Voucher{
         return $this->model
                 ->where('expires_on','>=',now()->format('Y-m-d'))
                 ->where('code',$voucher_code)
