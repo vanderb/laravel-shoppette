@@ -15,6 +15,7 @@ Route::group([
         //Cart functionality
         Route::get('cart/get','CartController@getCartById');
         Route::post('cart/add-item','CartController@addItem');
+        Route::put('cart/update-item','CartController@updateItem');
         Route::delete('cart/remove-item','CartController@removeItem');
         //Checkout functionality
         Route::get('checkout','CheckoutController@getCheckout');

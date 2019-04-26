@@ -22,6 +22,11 @@ class CartSession extends Model{
         'total_weight',
         'total_items'
     ];
+    
+    protected $casts = [
+        'shipping_address' => 'array',
+        'billing_address' => 'array'
+    ];
 
 
     public function cart_items(){
@@ -36,13 +41,13 @@ class CartSession extends Model{
         return $this->belongsTo(ShippingOption::class);
     }
     
-    public function getShippingAddressAttribute($value){
+    /*public function getShippingAddressAttribute($value){
         return new ShippingAddress($this->fromJson($value ?? '{}'));
     }
     
     public function getBillingAddressAttribute($value){
         return new BillingAddress($this->fromJson($value ?? '{}'));
-    }
+    }*/
     
     public function getCartTotalAttribute(){
         return $this->cart_items->sum(function($item){

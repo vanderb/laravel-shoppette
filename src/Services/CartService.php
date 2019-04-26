@@ -45,19 +45,25 @@ class CartService implements Cart{
     }
     
     public function saveBillingAddress(array $billing_address): bool{
-        
+        $this->session()->update([
+            'billing_address' => $billing_address
+        ]);
+        return true;
     }
     
     public function billingAddress(): BillingAddress{
-        
+        return $this->session()->billing_address;
     }
     
     public function saveShippingAddress(array $shipping_address): bool{
-        
+        $this->session()->update([
+            'shipping_address' => $shipping_address
+        ]);
+        return true;
     }
     
     public function shippingAddress(): ShippingAddress{
-        
+        return $this->session()->shipping_address;
     }
     
     public function redeemVoucher(Voucher $voucher): bool {

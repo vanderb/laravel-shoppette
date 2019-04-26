@@ -77,4 +77,12 @@ class BaseClass{
         return;
     }
     
+    public function toArray(){
+        return $this->attributes;
+    }
+    
+    public function toJson(){
+        return json_encode($this->attributes);
+    }
+    
 }

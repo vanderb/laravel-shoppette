@@ -12,6 +12,7 @@ class CartSessionService implements CartSessionContract{
         if(request()->bearerToken()){
             $session = CartSession::where('session_token', request()->bearerToken())
                 ->with(['cart_items.product', 'shipping_option', 'vouchers'])->first();
+            dd($session);
         }
         else{
             $session = CartSession::create([
