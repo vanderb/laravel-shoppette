@@ -5,7 +5,7 @@
 Route::group([
         'prefix' => 'api/shoppette/',
         'as.' => 'api.shoppette',
-        'middleware' => ['protectCartApi'],
+        'middleware' => \Vanderb\LaravelShoppette\Middleware\ProtectCartApi::class,
         'namespace' => 'Vanderb\LaravelShoppette\Controllers\FrontEnd'
     ],
     function(){
@@ -23,7 +23,4 @@ Route::group([
         Route::post('checkout/add-shipping-address','CheckoutController@addShippingAddress');
         //Oder functionality
         //Route::post('order','OrderController@saveOrder');
-        Route::get('session-test', function(){
-            dd(request()->get('cart_session'));
-        });
     });

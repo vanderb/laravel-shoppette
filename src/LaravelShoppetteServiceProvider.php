@@ -29,7 +29,7 @@ class LaravelShoppetteServiceProvider extends ServiceProvider {
         ], 'translatable');
 
         // register middleware
-        $this->app['router']->aliasMiddleware('protectCartApi', ProtectCartApi::class);
+        //$this->app['router']->aliasMiddleware('protectCartApi', ProtectCartApi::class);
 
         // Register install command
         if ($this->app->runningInConsole()) {
