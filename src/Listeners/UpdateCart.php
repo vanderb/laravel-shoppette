@@ -28,10 +28,17 @@ class UpdateCart {
      * @return void
      */
     public function handle(CartUpdated $event){
+        //Load most recent cart into session
+        CartSession::create();
         if($shipping_option = $this->shipping->getShippingOptionByWeight($event->cart->total_weight)){
             $event->cart->shipping_option_id = $shipping_option->id;
             $event->cart->save();
         }
+        else{
+            $event->cart->shipping_option_id = null;
+            $event->cart->save();
+        }
+        //Update cart
         CartSession::create();
     }
 }

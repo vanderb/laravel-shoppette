@@ -4,7 +4,7 @@ namespace Vanderb\LaravelShoppette\Commands;
 
 use Illuminate\Console\Command;
 
-class InstallCommand extends Command
+class GenerateModelsCommand extends Command
 {
     /**
      * The name and signature of the console command.

@@ -9,6 +9,7 @@ use Vanderb\LaravelShoppette\Classes\BillingAddress;
 use Vanderb\LaravelShoppette\Classes\ShippingAddress;
 use Vanderb\LaravelShoppette\Models\Voucher;
 use Vanderb\LaravelShoppette\Exceptions\VoucherUsedException;
+use Facades\Vanderb\LaravelShoppette\Contracts\CartSession as CartInSession;
 
 class CartService implements Cart{
     
@@ -37,11 +38,12 @@ class CartService implements Cart{
     
     public function remove(int $item_id): bool{
         $cart_item = $this->session()->cart_items->where('id',$item_id)->first();
-        if($cart_item){
-            $cart_item->delete();
-            return true;
+        if(!$cart_item){
+            return false;
         }
-        return false;
+        $cart_item->delete();
+        return true;
+        
     }
     
     public function saveBillingAddress(array $billing_address): bool{
@@ -71,6 +73,15 @@ class CartService implements Cart{
             throw new VoucherUsedException('Voucher has already been used.');
         }
         $this->session()->vouchers()->attach($voucher);
+        CartInSession::create();
+        return true;
+    }
+    
+    public function removeVoucher(int $id){
+        if(!$this->session()->vouchers->contains($id)){
+            return false;
+        }
+        $this->session()->vouchers()->detach($id);
         return true;
     }
     

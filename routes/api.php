@@ -12,6 +12,7 @@ Route::group([
         //Vouchers
         Route::post('vouchers/validate','VoucherController@validateVoucher');
         Route::get('vouchers/details','VoucherController@show');
+        Route::delete('vouchers/remove','VoucherController@remove');
         //Cart functionality
         Route::get('cart/get','CartController@getCartById');
         Route::post('cart/add-item','CartController@addItem');

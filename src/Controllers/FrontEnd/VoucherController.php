@@ -13,11 +13,9 @@ class VoucherController extends Controller {
     
     public function validateVoucher(Request $request, VoucherContract $vouchers){
         try {
-            
             if($voucher = $vouchers->validateVoucher($request->get('code'))) {
                 Cart::redeemVoucher($voucher);
             }
-
             return Cart::get();
         } catch (Exception $ex) {
             return response()->json(['error'=>$ex->getMessage()],500);
@@ -26,6 +24,11 @@ class VoucherController extends Controller {
 
     public function show(Request $request, VoucherContract $vouchers){
         return $vouchers->getVoucherDetails($request->get('code'));
+    }
+    
+    public function remove(Request $request){
+        Cart::removeVoucher($request->get('id'));
+        return Cart::get();
     }
 
 }

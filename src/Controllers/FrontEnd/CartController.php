@@ -12,6 +12,7 @@ use Exception;
 class CartController extends Controller {
 
     public function getCartById() {
+        logger('Getting cart!');
         return response()->json(Cart::get());
     }
 

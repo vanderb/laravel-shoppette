@@ -6,8 +6,8 @@ class BaseClass{
     
     protected $attributes = [];
     
-    public function __construct(array $attributes = []) {
-        $this->fill($attributes);
+    public function __construct(string $json = null) {
+        $this->fill($json);
     }
     
     /**
@@ -38,9 +38,10 @@ class BaseClass{
      * @return $this
      *
      */
-    public function fill(array $attributes){
+    public function fill(string $json = null){
         
-        foreach($attributes as $key=>$value){
+        foreach($this->fromJson($json) as $key=>$value){
+            logger('Key: '.$key.' Value: '.$value);
             $this->setAttribute($key, $value);
         }
         
@@ -78,11 +79,19 @@ class BaseClass{
     }
     
     public function toArray(){
+        logger('toArray called!');
         return $this->attributes;
     }
     
     public function toJson(){
+        logger('toJson called');
         return json_encode($this->attributes);
+    }
+    
+    public function fromJson(string $json = null){
+        logger('FromJson');
+        logger(json_decode($json,true));
+        return !is_null($json) ? json_decode($json,true) : [];
     }
     
 }
