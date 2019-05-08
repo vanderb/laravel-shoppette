@@ -15,9 +15,11 @@ class CreateOrderItemsTable extends Migration
     {
         Schema::create('ls_order_items', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('order_id');
-            $table->unsignedInteger('product_id');
-            $table->unsignedInteger('qty');
+            $table->unsignedBigInteger('order_id');
+            $table->foreign('order_id')->references('id')->on('ls_orders')->onDelete('cascade');
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('ls_products')->onDelete('cascade');
+            $table->unsignedBigInteger('qty');
             $table->timestamps();
         });
     }

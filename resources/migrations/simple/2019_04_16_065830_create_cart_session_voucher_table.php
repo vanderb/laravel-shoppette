@@ -15,9 +15,9 @@ class CreateCartSessionVoucherTable extends Migration
     {
         Schema::create('ls_cart_session_voucher', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('cart_session_id');
+            $table->unsignedBigInteger('cart_session_id');
             $table->foreign('cart_session_id')->references('id')->on('ls_cart_sessions')->onDelete('cascade');
-            $table->unsignedInteger('voucher_id');
+            $table->unsignedBigInteger('voucher_id');
             $table->foreign('voucher_id')->references('id')->on('ls_vouchers')->onDelete('cascade');
         });
     }

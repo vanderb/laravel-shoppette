@@ -15,9 +15,9 @@ class CreateDiscountProductTable extends Migration
     {
         Schema::create('ls_discount_product', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('discount_id');
+            $table->unsignedBigInteger('discount_id');
             $table->foreign('discount_id')->references('id')->on('ls_discounts')->onDelete('cascade');
-            $table->unsignedInteger('product_id');
+            $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('ls_products')->onDelete('cascade');
         });
     }

@@ -15,9 +15,11 @@ class CreateCartItemsTable extends Migration
     {
         Schema::create('ls_cart_items', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('cart_session_id');
-            $table->unsignedInteger('product_id');
-            $table->unsignedInteger('qty');
+            $table->unsignedBigInteger('cart_session_id');
+            $table->foreign('cart_session_id')->references('id')->on('ls_cart_sessions')->onDelete('cascade');
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('ls_products')->onDelete('cascade');
+            $table->unsignedBigInteger('qty');
             $table->timestamps();
         });
     }

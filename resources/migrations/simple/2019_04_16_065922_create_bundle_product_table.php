@@ -15,9 +15,9 @@ class CreateBundleProductTable extends Migration
     {
         Schema::create('ls_bundle_product', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('bundle_id');
+            $table->unsignedBigInteger('bundle_id');
             $table->foreign('bundle_id')->references('id')->on('ls_products')->onDelete('cascade');
-            $table->unsignedInteger('product_id');
+            $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('ls_products')->onDelete('cascade');
         });
     }
