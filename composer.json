@@ -11,7 +11,7 @@
     ],
     "require": {
         "illuminate/support": ">=5.5.0",
-        "flobbos/laravel-translatable-db": "^1.4.*"
+        "flobbos/laravel-translatable-db": "^1.4.0"
     },
     "minimum-stability": "dev",
     "autoload": {
